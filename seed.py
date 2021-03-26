@@ -1,5 +1,6 @@
 from app import app
-from models import db, Cupcake
+from models import db
+from models.cupcake import Cupcake
 
 
 db.drop_all()
