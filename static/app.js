@@ -6,6 +6,7 @@ const cakes = []
 
 $form.on('submit', submitCake)
 $searchForm.on('submit', searchForFlavor)
+//$searchForm.on('change', searchForFlavor)
 
 loadCakes();
 
@@ -43,8 +44,6 @@ async function loadCakes() {
     cakes.push(...newCakes)
     refillCakeList(newCakes)
 }
-
-
 
 
 function refillCakeList(newCakes) {
