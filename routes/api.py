@@ -5,15 +5,9 @@ from forms.cupcake_forms import NewCupcakeForm
 api = Blueprint('api_routes', __name__)
 
 
-@api.route('')
-def show_home_page():
-    """Show a welcome page"""
-    return "hello"
-
-
 @api.route('/cupcakes')
 def show_all_cupcakes():
-    """Shows all the cupcakes in the DB"""
+    """Returns all the cupcakes in the DB"""
     search = request.args.get('term')
 
     cakes = Cake.search_by_flavor(search) if search else Cake.get_all()
@@ -24,7 +18,7 @@ def show_all_cupcakes():
 
 @api.route('/cupcakes/<int:cake_id>')
 def show_a_cupcake(cake_id):
-    """Shows a cupcake from the DB"""
+    """returns a specific cupcake from the DB"""
     cake = Cake.get(cake_id)
     return jsonify(cupcake=cake.serialize())
 
@@ -41,8 +35,8 @@ def create_a_cupcake():
 
 
 @api.route('/cupcakes/<int:cake_id>', methods=["PATCH"])
-def delete_a_cupcake(cake_id):
-    """Updates a cupcake in the DB"""
+def update_a_cupcake(cake_id):
+    """updates a cupcake in the DB"""
     cake = Cake.get(cake_id)
     json = request.json
     if json:
@@ -56,12 +50,12 @@ def delete_a_cupcake(cake_id):
 
 
 @api.route('/cupcakes/<int:cake_id>', methods=["DELETE"])
-def update_a_cupcake(cake_id):
-    """Deletes a cupcake in the DB"""
-    #throws a 404 if no cake_id
+def delete_a_cupcake(cake_id):
+    """Deletes the cupcake in the DB"""
+    # throws a 404 if no cake_id
     cake = Cake.get(cake_id)
     serial_cake = cake.serialize()
-    #deletes the cake and updates the DB
+    # deletes the cake and updates the DB
     cake.delete()
 
     return jsonify(message="Deleted", deleted_cupcake=serial_cake)

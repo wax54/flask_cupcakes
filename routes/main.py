@@ -7,6 +7,6 @@ main = Blueprint('main_routes', __name__)
 
 @main.route('')
 def show_home_page():
-    """Show a welcome page"""
+    """Show The Home Page"""
     form = NewCupcakeForm()
     return render_template('home.html', form=form)
