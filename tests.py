@@ -1,7 +1,8 @@
 from unittest import TestCase
 
 from app import app
-from models import db, Cupcake
+from models import db
+from models.cupcake import Cupcake
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///cupcakes_test'
