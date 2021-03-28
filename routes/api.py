@@ -46,6 +46,21 @@ def update_a_cupcake(cake_id):
             cake.update_db()
             return jsonify(cupcake=cake.serialize())
         else:
+            return (jsonify(message="Could not Update", data=json), 400)
+    else:
+        return (jsonify(message="bad Input"), 400)
+
+
+@api.route('/cupcakes/<int:cake_id>', methods=["DELETE"])
+def update_a_cupcake(cake_id):
+    """Updates a cupcake in the DB"""
+    cake = Cake.get(cake_id)
+    json = request.json
+    if json:
+        if cake.update_from_serial(json):
+            cake.update_db()
+            return jsonify(cupcake=cake.serialize())
+        else:
             return (jsonify(message="Could not Update", data=json), 404)
     else:
         return (jsonify(message="bad Input"), 404)
