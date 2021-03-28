@@ -32,3 +32,11 @@ class AbstractBDModel():
     @classmethod
     def get_all(cls):
         return cls.query.all()
+
+    @classmethod
+    def search_by_attr(cls, attr_name, term):
+        attr = getattr(cls, attr_name)
+        if attr:
+            return cls.query.filter(attr.ilike(f'%{term}%')).all()
+        else:
+            return False

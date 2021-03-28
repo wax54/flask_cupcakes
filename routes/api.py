@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from models.cupcake import Cupcake as Cake
+from forms.cupcake_forms import NewCupcakeForm
 
 api = Blueprint('api_routes', __name__)
 
@@ -13,7 +14,10 @@ def show_home_page():
 @api.route('/cupcakes')
 def show_all_cupcakes():
     """Shows all the cupcakes in the DB"""
-    cakes = Cake.get_all()
+    search = request.args.get('term')
+
+    cakes = Cake.search_by_flavor(search) if search else Cake.get_all()
+
     json_cakes = jsonify(cupcakes=[cake.serialize() for cake in cakes])
     return json_cakes
 
@@ -33,7 +37,7 @@ def create_a_cupcake():
     if new_cake.from_serial(json):
         return (jsonify(cupcake=new_cake.serialize()), 201)
     else:
-        return (json, 404)
+        return (json, 400)
 
 
 @api.route('/cupcakes/<int:cake_id>', methods=["PATCH"])

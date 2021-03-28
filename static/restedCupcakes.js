@@ -6,6 +6,13 @@ async function getAllCakes() {
     return cupcakes;
 }
 
+async function getCakesByFlavor(term) {
+    const res = await axios.get(BASE_URL + '?term=' + term);
+    cupcakes = res.data.cupcakes;
+    return cupcakes;
+}
+
+
 async function getCake(cake_id) {
     const res = await axios.get(`${BASE_URL}/${cake_id}`);
     cupcake = res.data.cupcake;

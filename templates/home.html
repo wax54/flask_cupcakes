@@ -4,10 +4,17 @@
 
 {% block content %}
 
-<h1 class="display-1"> Hello There! </h1>
-<ul id="cupcake-list">
+<h1 class="display-1"> These are My Cupcakes! </h1>
+<form id="search-form">
+    <label for="cupcake-search">Search Cupcakes By Flavor</label>
+    <input type="text" name="cupcake-search" id="cupcake-search">
+    <input type="submit" value="Search">
+</form>
+<div class="container">
+    <ul id="cupcake-list" class="row justify-content-center">
 
-</ul>
+    </ul>
+</div>
 
 <form id="new-cupcake-form">
     <h3>Add A New Cucake!</h3>

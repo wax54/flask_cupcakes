@@ -52,3 +52,7 @@ class Cupcake(db.Model, AbstractBDModel):
             return self.update_from_serial(d)
         else:
             return False
+
+    @classmethod
+    def search_by_flavor(cls, term):
+        return cls.search_by_attr('flavor', term)
