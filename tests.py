@@ -84,6 +84,10 @@ class CupcakeViewsTestCase(TestCase):
                     "image": "http://test.com/cupcake.jpg"
                 }
             })
+            
+            url = f"/api/cupcakes/10000000"
+            resp = client.get(url)
+            self.assertEqual(resp.status_code, 404)
 
     def test_create_cupcake(self):
         with app.test_client() as client:
@@ -127,6 +131,12 @@ class CupcakeViewsTestCase(TestCase):
                 }
             })
             self.assertEqual(self.cupcake.flavor, "Raspberry")
+            
+            url = f"/api/cupcakes/1000000"
+            resp = client.patch(url, json={"flavor": "Raspberry"})
+
+            self.assertEqual(resp.status_code, 404)
+
 
     def test_delete_cupcake(self):
         with app.test_client() as client:

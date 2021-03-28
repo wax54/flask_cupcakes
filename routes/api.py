@@ -52,7 +52,7 @@ def delete_a_cupcake(cake_id):
         else:
             return (jsonify(message="Could not Update", data=json), 400)
     else:
-        return (jsonify(message="bad Input"), 400)
+        return (jsonify(message="Bad Input"), 400)
 
 
 @api.route('/cupcakes/<int:cake_id>', methods=["DELETE"])
