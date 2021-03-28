@@ -26,6 +26,7 @@ async function searchForFlavor(evt) {
 
 async function submitCake(evt) {
     evt.preventDefault();
+
     const newCake = getCakeFromForm();
     const result = await createCake(newCake)
     if (result) {
@@ -37,12 +38,14 @@ async function submitCake(evt) {
 }
 
 
-
 async function loadCakes() {
     const newCakes = await getAllCakes();
     cakes.push(...newCakes)
     refillCakeList(newCakes)
 }
+
+
+
 
 function refillCakeList(newCakes) {
     //empty the list if full
@@ -52,6 +55,11 @@ function refillCakeList(newCakes) {
     }
 }
 
+function addCake(cake) {
+    const html = makeCupcakeCard(cake);
+    const $newCake = $(html);
+    $list.append($newCake);
+}
 
 function getCakeFromForm() {
     flavor = $('#flavor').val();
@@ -67,13 +75,6 @@ function clearCakeForm() {
     $('#rating').val('');
 }
 
-
-
-function addCake(cake) {
-    const html = makeCupcakeCard(cake);
-    const $newCake = $(html);
-    $list.append($newCake);
-}
 
 
 function makeCupcakeCard(cake) {
