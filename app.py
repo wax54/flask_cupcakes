@@ -5,6 +5,8 @@ from config import DB_NAME
 from models import connect_db
 from models.cupcake import Cupcake
 from routes.api import api
+from routes.main import main
+
 
 
 app = Flask(__name__)
@@ -17,3 +19,4 @@ app.config['SQLALCHEMY_ECHO'] = True
 connect_db(app)
 
 app.register_blueprint(api, url_prefix='/api')
+app.register_blueprint(main, url_prefix='/')
