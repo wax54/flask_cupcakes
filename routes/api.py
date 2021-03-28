@@ -37,7 +37,7 @@ def create_a_cupcake():
 
 
 @api.route('/cupcakes/<int:cake_id>', methods=["PATCH"])
-def update_a_cupcake(cake_id):
+def delete_a_cupcake(cake_id):
     """Updates a cupcake in the DB"""
     cake = Cake.get(cake_id)
     json = request.json
@@ -53,14 +53,11 @@ def update_a_cupcake(cake_id):
 
 @api.route('/cupcakes/<int:cake_id>', methods=["DELETE"])
 def update_a_cupcake(cake_id):
-    """Updates a cupcake in the DB"""
+    """Deletes a cupcake in the DB"""
+    #throws a 404 if no cake_id
     cake = Cake.get(cake_id)
-    json = request.json
-    if json:
-        if cake.update_from_serial(json):
-            cake.update_db()
-            return jsonify(cupcake=cake.serialize())
-        else:
-            return (jsonify(message="Could not Update", data=json), 404)
-    else:
-        return (jsonify(message="bad Input"), 404)
+    serial_cake = cake.serialize()
+    #deletes the cake and updates the DB
+    cake.delete()
+
+    return jsonify(message="Deleted", deleted_cupcake=serial_cake)
